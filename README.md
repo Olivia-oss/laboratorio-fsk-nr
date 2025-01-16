@@ -33,7 +33,7 @@ Campos de un síntoma:
 
 4. Debes crear endpoint(s) para poder relacionar pacientes con síntomas.
 
-5. Extra (no obligatorio): 
+5. UI: 
 - Crear una página de login.
 - Validar si tiene login para poder acceder a la pantalla de pacientes.
 - En Backend al momento de hacer login debe validar si el usuario existe (como un usuario admin), generar un token y devolverlo al frontEnd
