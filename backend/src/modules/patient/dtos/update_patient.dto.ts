@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import {
   IsArray,
@@ -9,28 +10,35 @@ import {
 } from 'class-validator';
 
 export class UpdatePatientDto {
+  @ApiProperty()
   @IsString()
   @IsOptional()
   name?: string;
 
+  @ApiProperty()
   @IsString()
   @IsOptional()
   lastname?: string;
 
+  @ApiProperty()
   @IsDate()
   @IsOptional()
-  birhdate?: Date;
+  @Type(() => Date)
+  birthdate?: Date;
 
+  @ApiProperty()
   @IsString()
   @IsOptional()
   address: string;
 
+  @ApiProperty()
   @IsArray()
   @IsNotEmpty({ each: true })
   @Type(() => Number)
   @IsOptional()
   phoneNumbers?: number[];
 
+  @ApiProperty()
   @IsArray()
   @IsNotEmpty({ each: true })
   @Type(() => String)

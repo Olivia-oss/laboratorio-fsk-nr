@@ -20,7 +20,7 @@ export class Patient {
     type: Date,
     required: true,
   })
-  birhdate: Date;
+  birthdate: Date;
 
   @Prop({
     type: String,
