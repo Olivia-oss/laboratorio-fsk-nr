@@ -44,7 +44,6 @@ export class AuthController {
       if (error.code === 11000) {
         return res.status(409).json({ message: 'Email is already taken' });
       }
-      console.log(error);
 
       throw error;
     }
@@ -75,8 +74,6 @@ export class AuthController {
         message: 'authentication failed',
       });
     } catch (error) {
-      console.log(error);
-
       throw error;
     }
   }

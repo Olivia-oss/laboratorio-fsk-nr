@@ -39,11 +39,12 @@ export class AuthService {
     try {
       const auth = await this.authModel.findOne({ email: authDto.email });
 
-      if (auth) {
+      if (!auth) {
         throw new UnauthorizedException();
       }
 
       const hashPasseord = await this.encryptPassword(authDto.password);
+
       const isPasswordCorrect = hashPasseord === auth.password;
 
       if (isPasswordCorrect) {
