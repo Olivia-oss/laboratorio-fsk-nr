@@ -10,7 +10,7 @@ export class AuthController {
 
   @ApiOperation({ summary: 'Create User' })
   @ApiResponse({
-    status: 200,
+    status: 201,
     description: 'User has been created successfully',
   })
   @ApiResponse({
@@ -51,7 +51,7 @@ export class AuthController {
 
   @ApiOperation({ summary: 'Authentication User' })
   @ApiResponse({
-    status: 200,
+    status: 201,
     description: 'User has been authenticated successfully',
   })
   @ApiResponse({

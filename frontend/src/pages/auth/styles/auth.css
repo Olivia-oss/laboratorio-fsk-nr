@@ -1,0 +1,99 @@
+.ct-auth {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap-reverse;
+}
+
+.ct-auth > div {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.ct-auth h1 {
+  font-size: 50px;
+}
+
+.ct-auth img {
+  width: 200px;
+}
+
+.ct-auth-item {
+  flex-grow: 1;
+}
+
+.ct-verification {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+.ct-verification > h3 {
+  font-size: 40px;
+  align-self: center;
+}
+
+.ct-verification input {
+  width: 300px;
+  height: 30px;
+  background-color: #f4f1f1;
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.ct-verification label {
+  font-weight: 600;
+}
+
+.btn-login,
+.btn-signIn {
+  align-self: center;
+}
+
+.btn-login {
+  background-color: #08284d;
+  margin-top: 30px;
+}
+
+.btn-signIn {
+  background-color: #000;
+  margin-top: 10px;
+}
+
+/* header lab*/
+
+.ct-headerlab {
+  min-width: 400px;
+  background-color: #f4f1f1;
+}
+
+@media screen and (max-width: 870px) {
+  .ct-headerlab {
+    width: 99%;
+    height: 300px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .ct-headerlab {
+    min-width: 300px;
+    height: 200px;
+  }
+
+  .ct-headerlab h1 {
+    font-size: 40px;
+  }
+
+  .ct-headerlab img {
+    width: 150px;
+  }
+
+  .ct-auth input {
+    width: 250px;
+  }
+}

@@ -1,0 +1,33 @@
+html {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+button {
+  color: #fff;
+  border: none;
+  width: 150px;
+  padding: 10px 0;
+  border-radius: 10px;
+}
+
+.lb-error {
+  color: #6d0000;
+}
+
+/* LoadingIcon.css */
+.loading-spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1); /* Color de fondo del borde */
+  border-top: 4px solid #0099ff; /* Color de la parte visible del borde */
+  border-radius: 50%; /* Hace que el borde sea un círculo */
+  animation: spin 1s linear infinite; /* Configura la animación de giro */
+}
+
+/* Define la animación de giro */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
