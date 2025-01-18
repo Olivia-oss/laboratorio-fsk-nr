@@ -41,14 +41,14 @@ const authSlice = createSlice({
 
   reducers: {
     setAuth: (state, action) => {
-      state.user = action.payload;
+      state.login = action.payload;
     },
     fetchStartAuth: (state) => {
       state.status = "loading";
     },
     fetchSuccesAuth: (state, action) => {
       state.status = "succeeded";
-      state.user = action.payload;
+      state.login = action.payload;
     },
     fetchFailureAuth: (state, action) => {
       state.status = "failed";
