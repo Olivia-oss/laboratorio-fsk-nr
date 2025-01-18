@@ -1,7 +1,7 @@
 import { ConflictException, Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
+import { InjectConnection, InjectModel } from '@nestjs/mongoose';
 import { PatientSymptom } from '../schemas/patient-symptom.schema';
-import { Model } from 'mongoose';
+import { Connection, Model } from 'mongoose';
 import { CreatePatientSymptomDto } from '../dtos/create_patient_symptom.dto';
 
 @Injectable()
@@ -44,6 +44,21 @@ export class PatientSymptomService {
   async deletePatientSymtom(id: string) {
     try {
       const patineSympDelete = await this.patienSympModel.findByIdAndDelete(id);
+      if (patineSympDelete) {
+        return true;
+      }
+      return false;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async deletePatientSymtomByPatient(idPatient: string, session: any) {
+    try {
+      const patineSympDelete = await this.patienSympModel.findOneAndDelete(
+        { idPatient },
+        { session },
+      );
       if (patineSympDelete) {
         return true;
       }

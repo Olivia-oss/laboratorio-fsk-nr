@@ -43,9 +43,11 @@ export class PatientService {
     }
   }
 
-  async deletePatient(id: string) {
+  async deletePatient(id: string, session: any) {
     try {
-      const patientDelete = await this.patientModel.findByIdAndDelete(id);
+      const patientDelete = await this.patientModel.findByIdAndDelete(id, {
+        session,
+      });
       if (patientDelete) {
         return true;
       }

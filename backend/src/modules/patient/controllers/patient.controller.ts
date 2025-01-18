@@ -14,11 +14,18 @@ import { CreatePatientDto } from '../dtos/create_patient.dto';
 import { UpdatePatientDto } from '../dtos/update_patient.dto';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/modules/auth/guards/jwt.guard';
+import { InjectConnection } from '@nestjs/mongoose';
+import { Connection } from 'mongoose';
+import { PatientSymptomService } from 'src/modules/patient-symptom/services/patient-symptom.service';
 @ApiTags('Patient')
 @UseGuards(JwtAuthGuard)
 @Controller('patient')
 export class PatientController {
-  constructor(private readonly patientService: PatientService) {}
+  constructor(
+    private readonly patientService: PatientService,
+    private readonly patientSymptomService: PatientSymptomService,
+    @InjectConnection() private readonly connetion: Connection,
+  ) {}
 
   @ApiOperation({ summary: 'Get all patients' })
   @ApiResponse({ status: 500, description: 'Internal Server Error' })
@@ -95,8 +102,18 @@ export class PatientController {
   @ApiResponse({ status: 500, description: 'Internal Server Error' })
   @Delete('/:id')
   async delete(@Param('id') id: string, @Res() res) {
+    const session = await this.connetion.startSession();
+    session.startTransaction();
     try {
-      const isDeleted = await this.patientService.deletePatient(id);
+      await this.patientSymptomService.deletePatientSymtomByPatient(
+        id,
+        session,
+      );
+
+      const isDeleted = await this.patientService.deletePatient(id, session);
+
+      await session.commitTransaction();
+      session.endSession();
 
       if (isDeleted) {
         res.status(200).json({
@@ -108,6 +125,8 @@ export class PatientController {
         });
       }
     } catch (error) {
+      await session.abortTransaction();
+      session.endSession();
       throw error;
     }
   }

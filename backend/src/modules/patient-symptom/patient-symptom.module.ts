@@ -15,5 +15,6 @@ import {
   ],
   providers: [PatientSymptomService],
   controllers: [PatientSymptomController],
+  exports: [PatientSymptomService],
 })
 export class PatientSymptomModule {}
