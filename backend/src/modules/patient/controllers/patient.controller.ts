@@ -69,13 +69,23 @@ export class PatientController {
     description: 'Patient has been updated successfully',
   })
   @Put('/:id')
-  async update(@Body() patientDto: UpdatePatientDto, @Param('id') id: string) {
+  async update(
+    @Body() patientDto: UpdatePatientDto,
+    @Param('id') id: string,
+    @Res() res,
+  ) {
     try {
       const patient = await this.patientService.updatePatient(patientDto, id);
-      return {
-        patient,
-        message: 'Updated patient successfully',
-      };
+      if (patient) {
+        res.json({
+          patient,
+          message: 'Updated patient successfully',
+        });
+      } else {
+        res.status(404).json({
+          message: 'Updated patient failed',
+        });
+      }
     } catch (error) {
       throw error;
     }
@@ -92,10 +102,11 @@ export class PatientController {
         res.status(200).json({
           message: 'Deleted patient successfully',
         });
+      } else {
+        res.status(404).json({
+          message: 'Patient not found',
+        });
       }
-      res.status(404).json({
-        message: 'Patient not found',
-      });
     } catch (error) {
       throw error;
     }
