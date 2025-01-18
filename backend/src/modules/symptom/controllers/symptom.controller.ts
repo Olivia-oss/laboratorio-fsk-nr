@@ -14,12 +14,19 @@ import { SymptomService } from '../services/symptom.service';
 import { CreateSymptomDto } from '../dtos/create_symptom.dto';
 import { UpdateSymptomDto } from '../dtos/update_symptom.dto';
 import { JwtAuthGuard } from 'src/modules/auth/guards/jwt.guard';
+import { PatientSymptomService } from 'src/modules/patient-symptom/services/patient-symptom.service';
+import { Connection } from 'mongoose';
+import { InjectConnection } from '@nestjs/mongoose';
 
 @ApiTags('Symptom')
 @UseGuards(JwtAuthGuard)
 @Controller('symptom')
 export class SymptomController {
-  constructor(private readonly symptomService: SymptomService) {}
+  constructor(
+    private readonly symptomService: SymptomService,
+    private readonly patientSymptomService: PatientSymptomService,
+    @InjectConnection() private readonly connetion: Connection,
+  ) {}
 
   @ApiOperation({ summary: 'Get all symptoms' })
   @ApiResponse({ status: 500, description: 'Internal Server Error' })
@@ -96,8 +103,16 @@ export class SymptomController {
   @ApiResponse({ status: 500, description: 'Internal Server Error' })
   @Delete('/:id')
   async delete(@Param('id') id: string, @Res() res) {
+    const session = await this.connetion.startSession();
+    session.startTransaction();
     try {
-      const isDeleted = await this.symptomService.deleteSymptom(id);
+      await this.patientSymptomService.deletePatientSymtomBySymptom(
+        id,
+        session,
+      );
+      const isDeleted = await this.symptomService.deleteSymptom(id, session);
+      await session.commitTransaction();
+      session.endSession();
 
       if (isDeleted) {
         res.status(200).json({
@@ -109,6 +124,8 @@ export class SymptomController {
         });
       }
     } catch (error) {
+      await session.abortTransaction();
+      session.endSession();
       throw error;
     }
   }

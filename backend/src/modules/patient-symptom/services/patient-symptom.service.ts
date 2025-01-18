@@ -67,4 +67,19 @@ export class PatientSymptomService {
       throw error;
     }
   }
+
+  async deletePatientSymtomBySymptom(idSymptom: string, session: any) {
+    try {
+      const patineSympDelete = await this.patienSympModel.findOneAndDelete(
+        { idSymptom },
+        { session },
+      );
+      if (patineSympDelete) {
+        return true;
+      }
+      return false;
+    } catch (error) {
+      throw error;
+    }
+  }
 }

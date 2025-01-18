@@ -42,9 +42,11 @@ export class SymptomService {
     }
   }
 
-  async deleteSymptom(id: string) {
+  async deleteSymptom(id: string, session: any) {
     try {
-      const symptomDelete = await this.symptomModel.findByIdAndDelete(id);
+      const symptomDelete = await this.symptomModel.findByIdAndDelete(id, {
+        session,
+      });
       if (symptomDelete) {
         return true;
       }
