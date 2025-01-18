@@ -38,7 +38,7 @@ export class PatientService {
         { new: true },
       );
       return patientUpdate;
-    } catch {
+    } catch (error) {
       throw error;
     }
   }
