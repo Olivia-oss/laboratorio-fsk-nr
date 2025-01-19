@@ -3,6 +3,7 @@
 }
 
 .ct-item-patient {
+  width: 50%;
   background-color: #f4f1f1;
   margin: 10px 20px;
   padding: 20px;
@@ -21,13 +22,15 @@
 }
 
 /*form patient*/
-.ct-form-patient {
+.ct-form-patient,
+.ct-form-symptom {
   display: flex;
   flex-direction: column;
   margin: 20px;
 }
 
-.ct-form-patient input {
+.ct-form-patient input,
+.ct-form-symptom input {
   padding: 10px;
   margin-top: 10px;
   border-radius: 20px;
@@ -48,8 +51,25 @@
 }
 
 /* view patient*/
-.ct-view-patient {
+
+.ct-general-view {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
   margin: 20px;
+  gap: 50px;
+  justify-content: space-around;
+}
+
+.ct-symptom-patient h3 {
+  margin-top: 60px;
+}
+
+.ct-symptom {
+  margin-top: 45px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .ct-view-patient h3 {
@@ -63,4 +83,13 @@
 .btn-delete {
   background-color: #5a0404;
   margin-left: 20px;
+}
+
+/*item symptom*/
+.item-symptom {
+  background-color: #013a32;
+  border-radius: 20px;
+  padding: 10px 20px;
+  color: #f4f1f1;
+  margin: 20px;
 }

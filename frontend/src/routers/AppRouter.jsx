@@ -5,6 +5,7 @@ import Home from "../pages/home/Home";
 import CreatePatient from "../pages/home/CreatePatient";
 import ViewPatient from "../pages/home/viewPatient";
 import EditPatient from "../pages/home/EditPatient";
+import CreateSymptom from "../pages/symptom/CreateSymptom";
 export const AppRouter = () => {
   return (
     <Routes>
@@ -14,6 +15,7 @@ export const AppRouter = () => {
       <Route path="/createPatient" element={<CreatePatient />} />
       <Route path="/patient/view" element={<ViewPatient />} />
       <Route path="/patient/edit" element={<EditPatient />} />
+      <Route path="/symptom/create" element={<CreateSymptom />} />
     </Routes>
   );
 };

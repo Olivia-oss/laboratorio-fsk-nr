@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { PatientRequest } from "../api/request/patient";
+import { PatientSymptomRequest } from "../api/request/patientSymptom";
 
 export const requstAllPatinet = () => async (dispatch) => {
   dispatch(fetchStartPatient());
@@ -65,6 +66,34 @@ export const requstDeletePatinet = (id) => async (dispatch) => {
     dispatch(fetchFailurePatient(error.message));
   }
 };
+
+export const requstUpdatePatinetSymptom =
+  (id, data, symptom) => async (dispatch) => {
+    // dispatch(fetchStartPatient());
+    try {
+      console.log(data);
+
+      const response = await PatientSymptomRequest.postPatientSymptom(data);
+      console.log(response);
+
+      if (response) {
+        dispatch(
+          fetchCupdateSuccessPartientSymptom({
+            symptomNew: {
+              _id: response,
+              symptom,
+            },
+            id,
+          })
+        );
+      } else {
+        dispatch(fetchFailurePatient("request-empty"));
+      }
+    } catch (error) {
+      dispatch(fetchFailurePatient(error.message));
+    }
+  };
+
 const patientSlice = createSlice({
   name: "patient",
   initialState: {
@@ -106,6 +135,18 @@ const patientSlice = createSlice({
       const id = action.payload;
       state.data = state.data.filter((item) => item._id !== id);
     },
+    fetchCupdateSuccessPartientSymptom: (state, action) => {
+      // state.status = "succeeded";
+      const { id, symptomNew } = action.payload;
+
+      const index = state.data.findIndex((item) => item.id === id);
+      if (index !== -1) {
+        state.data[index] = {
+          ...state.data[index],
+          symptoms: state.data[index].symptoms.push(symptomNew),
+        };
+      }
+    },
     resetStatusPatient: (state) => {
       state.status = "idle";
     },
@@ -120,6 +161,7 @@ export const {
   resetStatusPatient,
   fetchCupdateSuccessPartient,
   fechDeleteSuccessPatient,
+  fetchCupdateSuccessPartientSymptom,
 } = patientSlice.actions;
 
 export default patientSlice.reducer;

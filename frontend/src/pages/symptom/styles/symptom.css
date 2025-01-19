@@ -1,0 +1,11 @@
+.ct-form-symptom input {
+  margin-bottom: 20px;
+}
+
+.ct-form-symptom .btn-add {
+  align-self: center;
+}
+
+.ct-form-symptom .btn-signIn {
+  align-self: flex-start;
+}

@@ -12,6 +12,7 @@ import { PatientSymptomService } from '../services/patient-symptom.service';
 import { CreatePatientSymptomDto } from '../dtos/create_patient_symptom.dto';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/modules/auth/guards/jwt.guard';
+import { Symptom } from 'src/modules/symptom/schemas/symptom.schema';
 
 @ApiTags('PatientSymptom')
 @UseGuards(JwtAuthGuard)
@@ -51,6 +52,9 @@ export class PatientSymptomController {
         await this.patientSympService.createPatientSymptom(patientSymptomDto);
       return {
         message: 'Created patientSymptom successfully',
+        symptom: {
+          _id: patientSymCreate.id,
+        },
       };
     } catch (error) {
       throw error;
