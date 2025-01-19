@@ -72,28 +72,24 @@ export const requstDeletePatinet = (id) => async (dispatch) => {
 
 export const requstUpdatePatinetSymptom =
   (id, data, symptom) => async (dispatch) => {
-    // dispatch(fetchStartPatient());
+    dispatch(fetchStartPatientSymptom());
     try {
-      console.log(data);
-
       const response = await PatientSymptomRequest.postPatientSymptom(data);
-      console.log(response);
 
       if (response) {
         dispatch(
           fetchCupdateSuccessPartientSymptom({
             symptomNew: {
-              _id: response,
               symptom,
             },
             id,
           })
         );
       } else {
-        dispatch(fetchFailurePatient("request-empty"));
+        //dispatch(fetchFailurePatient("request-empty"));
       }
-    } catch (error) {
-      dispatch(fetchFailurePatient(error.message));
+    } catch {
+      //   dispatch(fetchFailurePatient(error.message));
     }
   };
 
@@ -103,6 +99,7 @@ const patientSlice = createSlice({
     data: [],
     status: "idle",
     error: null,
+    statusSymptom: "idle",
   },
 
   reducers: {
@@ -125,7 +122,8 @@ const patientSlice = createSlice({
       state.status = "succeeded";
       const { id, updateData } = action.payload;
 
-      const index = state.data.findIndex((item) => item.id === id);
+      const index = state.data.findIndex((item) => item._id === id);
+
       if (index !== -1) {
         state.data[index] = {
           ...state.data[index],
@@ -139,18 +137,29 @@ const patientSlice = createSlice({
       state.data = state.data.filter((item) => item._id !== id);
     },
     fetchCupdateSuccessPartientSymptom: (state, action) => {
-      // state.status = "succeeded";
+      state.statusSymptom = "succeeded";
       const { id, symptomNew } = action.payload;
 
-      const index = state.data.findIndex((item) => item.id === id);
+      const index = state.data.findIndex((item) => item._id === id);
+      console.log(index, "index");
+
       if (index !== -1) {
         state.data[index] = {
           ...state.data[index],
-          symptoms: state.data[index].symptoms.push(symptomNew),
+          symptoms: [
+            ...state.data[index].symptoms, // Spread the existing symptoms array
+            symptomNew, // Append the new symptom
+          ],
         };
       }
     },
+    fetchStartPatientSymptom: (state) => {
+      state.status = "loading";
+    },
     resetStatusPatient: (state) => {
+      state.status = "idle";
+    },
+    resetStatusPatientSymptom: (state) => {
       state.status = "idle";
     },
   },
@@ -165,6 +174,8 @@ export const {
   fetchCupdateSuccessPartient,
   fechDeleteSuccessPatient,
   fetchCupdateSuccessPartientSymptom,
+  fetchStartPatientSymptom,
+  resetStatusPatientSymptom,
 } = patientSlice.actions;
 
 export default patientSlice.reducer;

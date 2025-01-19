@@ -50,6 +50,7 @@ export class PatientSymptomController {
     try {
       const patientSymCreate =
         await this.patientSympService.createPatientSymptom(patientSymptomDto);
+
       return {
         message: 'Created patientSymptom successfully',
         symptom: {
