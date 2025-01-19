@@ -15,12 +15,11 @@ export default function ViewPatient() {
   const navigate = useNavigate();
   const dispach = useDispatch();
   const status = useSelector((state) => state.patinets.status);
+  const statusPatientSym = useSelector((state) => state.patinets.statusSymptom);
   const [error, setError] = useState("");
   const { loading, symptoms, getSymptoms } = useSymptomHook();
 
   useEffect(() => {
-    console.log(status);
-
     if (status === "succeeded") {
       dispach(resetStatusPatient());
       navigate("/home");
@@ -69,6 +68,7 @@ export default function ViewPatient() {
   const handleChangeSym = () => {
     navigate("/symptom/create");
   };
+
   return (
     <div className="ct-general-view">
       <div className="ct-view-patient">

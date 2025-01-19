@@ -45,6 +45,7 @@ export class PatientSymptomService {
     try {
       const symptomExist = await this.patienSympModel.findOne({
         idSymptom: pantienSympDTO.idSymptom,
+        idPatient: pantienSympDTO.idPatient,
       });
       if (symptomExist) {
         throw new ConflictException('Symptom already exist with this patient');
