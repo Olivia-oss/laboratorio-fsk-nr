@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { PatientRequest } from "../api/request/patient";
 import { PatientSymptomRequest } from "../api/request/patientSymptom";
+import { setAuth } from "./auth";
 
 export const requstAllPatinet = () => async (dispatch) => {
   dispatch(fetchStartPatient());
@@ -8,6 +9,8 @@ export const requstAllPatinet = () => async (dispatch) => {
     const response = await PatientRequest.getPatients();
 
     if (response) {
+      dispatch(setAuth(true));
+
       dispatch(fetchSuccesPatient(response));
     } else {
       dispatch(fetchFailurePatient("request-empty"));

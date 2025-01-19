@@ -1,6 +1,5 @@
 import { useState } from "react";
 
-import LoadingIcon from "../../shared/IconLoadin";
 import "./styles/symptom.css";
 import { SymptomRequest } from "../../api/request/symptom";
 import { useNavigate } from "react-router-dom";

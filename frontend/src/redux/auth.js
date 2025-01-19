@@ -22,7 +22,7 @@ export const requstSingIn = (data) => async (dispatch) => {
     const response = await AuthRequest.postSign(data);
 
     if (response) {
-      dispatch(fetchSuccesAuth(response));
+      dispatch(fetchSuccesAuth(true));
     } else {
       dispatch(fetchFailureAuth("request-empty"));
     }
