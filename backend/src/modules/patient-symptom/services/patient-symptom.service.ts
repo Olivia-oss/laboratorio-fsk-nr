@@ -11,6 +11,21 @@ export class PatientSymptomService {
     private readonly patienSympModel: Model<PatientSymptom>,
   ) {}
 
+  async getSympyoms() {
+    try {
+      return await this.patienSympModel
+        .find()
+        .select('_id idSymptom idPatient')
+        .populate({
+          path: 'idSymptom',
+          select: 'name description -_id',
+        })
+        .exec();
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async getByIdPatient(idPatient: string) {
     try {
       return await this.patienSympModel
