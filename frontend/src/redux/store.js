@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import authRedux from "./auth";
+import authReducer from "./auth";
+import patientReducer from "./patient";
 
 const store = configureStore({
   reducer: {
-    auth: authRedux,
+    auth: authReducer,
+    patinets: patientReducer,
   },
 });
 
